@@ -6,10 +6,16 @@ global_apprerance/movienet
 global_apprerance/tvqa/failer_cases
 GPT-4/skills_output
 global_apprerance/tvqa/human
-global_apprerance/tvqa/processed_data
 sources
 evaluation/edit_lwm
 evaluation/GPT4_eval/lwm_eval
 evaluation/GPT4_eval/moviechat_eval
 evaluation/llama3_batch
 evaluation/llama3_evaluation
+global_apprerance/tvqa/character_cropped_images_clips
+global_apprerance/tvqa/character_cropped_images_filtered_humanly
+global_apprerance/tvqa/character_cropped_images_long
+scrapping/tvqa/summaries_txt
+evaluation/Goldfish_output
+evaluation/LWM_output
+evaluation/Moviechat_output
