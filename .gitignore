@@ -1,0 +1,15 @@
+.idea
+.vscode
+analysis
+benchmark
+global_apprerance/movienet
+global_apprerance/tvqa/failer_cases
+GPT-4/skills_output
+global_apprerance/tvqa/human
+global_apprerance/tvqa/processed_data
+sources
+evaluation/edit_lwm
+evaluation/GPT4_eval/lwm_eval
+evaluation/GPT4_eval/moviechat_eval
+evaluation/llama3_batch
+evaluation/llama3_evaluation
