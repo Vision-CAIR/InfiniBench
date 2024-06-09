@@ -1,7 +1,7 @@
 import os 
 import json 
 
-tvqa_val_data =json.load(open('../benchmark/tvqa_val_edited.json', 'r'))
+tvqa_val_data =json.load(open('../process_tvqa_videos/tvqa_val_edited.json', 'r'))
 mapping={"Grey's Anatomy":"grey", 'How I Met You Mother':"met", 'Friends':"friends", 'The Big Bang Theory':"bbt", 'House M.D.':"house", 'Castle':"castle"} 
 MCQ_header="Choose the correct option for the following question: "
 long_tvqa_data=[]

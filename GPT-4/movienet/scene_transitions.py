@@ -11,20 +11,22 @@ import pysrt
 import chardet
 from openai import OpenAI
 
-client = OpenAI(
-    # This is the default and can be omitted
-    api_key="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",
-)
-
 def parse_args():
     parser = argparse.ArgumentParser(description="question-answer-generation-using-gpt-4")
     parser.add_argument("--gt_caption_folder", default='summ_copy')
     parser.add_argument("--output_dir", default='scene_transition_without_brackets')
     parser.add_argument("--output_json", default="scene_transition_without_brackets.json")
-    parser.add_argument("--api_key",default="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")
+    parser.add_argument("--api_key",required=True)
     parser.add_argument("--num_tasks", default=3, type=int)
     args = parser.parse_args()
     return args
+
+# Parse arguments.
+args = parse_args()
+client = OpenAI(
+    # This is the default and can be omitted
+    api_key=args.api_key
+)
 
 
 def read_subtitles(subtitle_path):
@@ -98,8 +100,6 @@ def main():
     """
     Main function to control the flow of the program.
     """
-    # Parse arguments.
-    args = parse_args()
 
     # Read ground truth captions.
     gt_captions = {}

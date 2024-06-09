@@ -12,19 +12,23 @@ import chardet
 from openai import OpenAI
 from tqdm import tqdm
 
-client = OpenAI(
-    # This is the default and can be omitted
-    api_key="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",
-)
 def parse_args():
     parser = argparse.ArgumentParser(description="question-answer-generation-using-gpt-4")
     parser.add_argument("--gt_caption_folder", default='../../sources/summaries/tvqa_summaries')
     parser.add_argument("--output_dir", default='../../skills_output_full/linking_events_qa')
     parser.add_argument("--output_json", default="../../skills_output_full/linking_events_qa.json")
-    parser.add_argument("--api_key",default="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")
+    parser.add_argument("--api_key",required=True)
     parser.add_argument("--num_tasks", default=32, type=int)
     args = parser.parse_args()
     return args
+
+# Parse arguments.
+args = parse_args()
+client = OpenAI(
+    # This is the default and can be omitted
+    api_key=args.api_key
+)
+
 def read_subtitles(subtitle_path):
     # read the subtitle file and detect the encoding
     try:
@@ -101,8 +105,6 @@ def main():
     """
     Main function to control the flow of the program.
     """
-    # Parse arguments.
-    args = parse_args()
 
     # Read ground truth captions.
     gt_captions = {}
