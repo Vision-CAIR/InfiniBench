@@ -19,3 +19,7 @@ scrapping/tvqa/summaries_txt
 evaluation/Goldfish_output
 evaluation/LWM_output
 evaluation/Moviechat_output
+evaluation/GPT4_eval/goldfish
+sources_filtered
+# ignore movienet scene transitions
+# GPT-4/movienet/scene_transitions.py
