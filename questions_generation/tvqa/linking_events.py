@@ -6,8 +6,13 @@ import random
 # set the seed for reproducibility 
 random.seed(72) # it is my birthday 7th of February
 
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--gpt4_output",required=True)
 
-with open ('../benchmark/linking_events_final.json','r') as f:
+args = parser.parse_args()
+
+with open (args.gpt4_output,'r') as f:
     linking_events_data=json.load(f)
 linking_events_qa=[]   
 for key_name in linking_events_data:
@@ -30,8 +35,9 @@ for key_name in linking_events_data:
         data['video_subtitles'] = f"{show_name}/{season}/{episode}.srt"
         linking_events_qa.append(data)
         
-    
-with open ('../benchmark/linking_events_tvqa.json','w') as f:
+os.makedirs("../../benchmark",exist_ok=True)
+
+with open ('../../benchmark/tvqa_linking_events.json','w') as f:
     json.dump(linking_events_qa,f,indent=4)
     
     

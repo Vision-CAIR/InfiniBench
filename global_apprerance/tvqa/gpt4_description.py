@@ -12,6 +12,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--data_path", type=str, default="character_cropped_images_filtered_humanly")
 parser.add_argument("--output_dir", type=str, default="GPT4o_output")
+parser.add_argument("--api_key", required=True)
 
 args = parser.parse_args()
 data_path = args.data_path
@@ -25,12 +26,10 @@ def encode_image(image_path):
 
 
 
-api_key = open('/home/ataallka/chatgpt_api_personal.txt').read().replace('\n','')
-client = OpenAI(api_key=api_key)
 
 headers = {
   "Content-Type": "application/json",
-  "Authorization": f"Bearer {api_key}"
+  "Authorization": f"Bearer {args.api_key}"
 }
 
 def prepare_the_payload(image_paths):

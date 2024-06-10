@@ -4,9 +4,13 @@ import random
 # set the seed for reproducibility
 random.seed(72) # it is my birthday 7th of February
 from tqdm import tqdm
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--gpt4_output",required=True)
 
+args = parser.parse_args()
 
-context_understanding_data=json.load(open('../../skills_output/movienet/context_understanding_movienet_new.json', 'r'))
+context_understanding_data=json.load(open(args.gpt4_output, 'r'))
 benchmark_data=[]
 for movie in tqdm(context_understanding_data,desc="Processing MovieNet data"):
     qa_list=context_understanding_data[movie]
@@ -23,5 +27,7 @@ for movie in tqdm(context_understanding_data,desc="Processing MovieNet data"):
         benchmark_data.append(data)
     
 print(f"Total number of questions generated: {len(benchmark_data)}")
-with open('../../benchmark/context_understanding_movienet.json','w') as f:
+os.makedirs("../../benchmark",exist_ok=True)
+
+with open('../../benchmark/movienet_deep_context_understanding.json','w') as f:
     json.dump(benchmark_data,f,indent=4)

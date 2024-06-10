@@ -1,7 +1,13 @@
 import os 
 import json 
 
-tvqa_val_data =json.load(open('../process_tvqa_videos/tvqa_val_edited.json', 'r'))
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--tvqa_val_edited",required=True, help="Path to the edited TVQA validation data")
+
+args = parser.parse_args()
+
+tvqa_val_data =json.load(open(args.tvqa_val_edited, 'r'))
 mapping={"Grey's Anatomy":"grey", 'How I Met You Mother':"met", 'Friends':"friends", 'The Big Bang Theory':"bbt", 'House M.D.':"house", 'Castle':"castle"} 
 MCQ_header="Choose the correct option for the following question: "
 long_tvqa_data=[]
@@ -31,5 +37,5 @@ for show in tvqa_val_data:
                         
                 long_tvqa_data.append(data)
                 
-with open('../benchmark/final/mcq_open_ended/long_tvqa_questions.json','w') as f:
+with open('../benchmark/final/long_tvqa_questions.json','w') as f:
     json.dump(long_tvqa_data,f,indent=4)

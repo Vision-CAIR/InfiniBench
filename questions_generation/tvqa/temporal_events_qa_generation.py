@@ -5,6 +5,12 @@ import ast
 import random
 # set the seed for reproducibility 
 random.seed(72) # it is my birthday 7th of February
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--gpt4_output",required=True)
+
+args = parser.parse_args()
+
 
 def create_yes_no_qa (event_1,event_2,show,season,episode):
     question1=f"Did the event '{event_1}' happen before the event '{event_2}'?" # A1:Yes
@@ -102,125 +108,117 @@ pool_for_sub_events=[
     "Given the events listed {}, what is the sequential order in this episode?",
 ]
 
-paths=[
-    '../../skills_output/tvqa/extracted_events/met_new.json',
-    '../../skills_output/tvqa/extracted_events/friends_new.json',
-    '../../skills_output/tvqa/extracted_events/bbt_new.json',
-    '../../skills_output/tvqa/extracted_events/grey_new.json',
-    '../../skills_output/tvqa/extracted_events/house_new.json',
-    '../../skills_output/tvqa/extracted_events/castle_new.json'
-]
+
 temporal_questions=[] 
-for path in paths:
-    with open (path,'r') as f:
-        events_data=json.load(f)  
-    for episode in events_data:
-        # friends_season_1_episode_14
-        episode_events=events_data[episode]
-        name_list=episode.split('_')
-        show_name=name_list[0]
-        season="season_"+name_list[2]
-        episode="episode_"+name_list[4]
-        correct_answer=episode_events.copy()
-        if len(correct_answer)<3:
-            continue
-        # create a list of wrong answers 
-        options=generate_unique_options(correct_answer)
-        options.append(correct_answer)
-        # add I don't know option 
-        options.append("I don't know")
-        random_q=random.choice(pool_of_questions)
-        question=f"{MCQ_header} {random_q}"
-        # shuffle the options 
-        random.shuffle(options)
-        answer_key=options.index(correct_answer)
-        data={}
-        data['answer_idx']=answer_key
-        data['options']=options
-        data['question']=question
-        data['season']=season
-        data['episode']=episode
-        data['show']=show_name
-        data['video_path_mp4']=f"/{show_name}/{season}/{episode}.mp4"
-        temporal_questions.append(data)
-        #################################################################
-        # loop over the events
-        # for m in range(len(episode_events)-1) :
-            # form 2 questions : q1 : Is event [m] happened before event [m+1]? A1:Yes , Is event [m+1] happened before event [m]? A2:No 
-            # Is event [m+1] happened after event [m]? A1:Yes , Is event [m] happened after event [m+1]? A2:No 
-            # the options are Yes and No 
+path=args.gpt4_output
+with open (path,'r') as f:
+    events_data=json.load(f)  
+for episode in events_data:
+    episode_events=events_data[episode]
+    name_list=episode.split('_')
+    show_name=name_list[0]
+    season="season_"+name_list[2]
+    episode="episode_"+name_list[4]
+    correct_answer=episode_events.copy()
+    if len(correct_answer)<3:
+        continue
+    # create a list of wrong answers 
+    options=generate_unique_options(correct_answer)
+    options.append(correct_answer)
+    # add I don't know option 
+    options.append("I don't know")
+    random_q=random.choice(pool_of_questions)
+    question=f"{MCQ_header} {random_q}"
+    # shuffle the options 
+    random.shuffle(options)
+    answer_key=options.index(correct_answer)
+    data={}
+    data['answer_idx']=answer_key
+    data['options']=options
+    data['question']=question
+    data['season']=season
+    data['episode']=episode
+    data['show']=show_name
+    data['video_path_mp4']=f"/{show_name}/{season}/{episode}.mp4"
+    temporal_questions.append(data)
+    #################################################################
+    # loop over the events
+    # for m in range(len(episode_events)-1) :
+        # form 2 questions : q1 : Is event [m] happened before event [m+1]? A1:Yes , Is event [m+1] happened before event [m]? A2:No 
+        # Is event [m+1] happened after event [m]? A1:Yes , Is event [m] happened after event [m+1]? A2:No 
+        # the options are Yes and No 
+    
+    # for m in range(len(episode_events)-1):
+    #     event1=episode_events[m]
+    #     event2=episode_events[m+1]
+    #     data1,data2,data3,data4=create_yes_no_qa(event1,event2,show_name,season,episode)
+    #     temporal_questions.append(data1)
+    #     temporal_questions.append(data2)
+    #     temporal_questions.append(data3)
+    #     temporal_questions.append(data4)
         
-        # for m in range(len(episode_events)-1):
-        #     event1=episode_events[m]
-        #     event2=episode_events[m+1]
-        #     data1,data2,data3,data4=create_yes_no_qa(event1,event2,show_name,season,episode)
-        #     temporal_questions.append(data1)
-        #     temporal_questions.append(data2)
-        #     temporal_questions.append(data3)
-        #     temporal_questions.append(data4)
-            
-        # Not only ask about the adjacent events but also ask about any random 2 events 
-        history_of_events={}
-        for i in range(5):
-            m=random.randint(0,len(episode_events)-1)
+    # Not only ask about the adjacent events but also ask about any random 2 events 
+    history_of_events={}
+    for i in range(5):
+        m=random.randint(0,len(episode_events)-1)
+        n=random.randint(0,len(episode_events)-1)
+        # m shouldn't be equal to n 
+        while m==n:
             n=random.randint(0,len(episode_events)-1)
-            # m shouldn't be equal to n 
-            while m==n:
-                n=random.randint(0,len(episode_events)-1)
-            # if the pair of events has been asked before, skip it
-            l=sorted([m,n])
+        # if the pair of events has been asked before, skip it
+        l=sorted([m,n])
+        if history_of_events.get(str(l),False):
+            continue 
+        history_of_events[str(l)]=True
+        event1=episode_events[min(m,n)]
+        event2=episode_events[max(m,n)]
+        data1,data2,data3,data4=create_yes_no_qa(event1,event2,show_name,season,episode)
+        temporal_questions.append(data1)
+        temporal_questions.append(data2)
+        temporal_questions.append(data3)
+        temporal_questions.append(data4)
+    
+        
+    # Ask questions about the correct sqeuence of some events say 3 or 4 events
+    # first select 3 or 4 ordered events randomly  
+    # shuffle the events 
+    # form the question 
+    # create the options
+    # create the answer key
+    history_of_events={}
+    for i in range(3):
+        for n in range(3,5):
+            random_number=random.randint(0,len(episode_events)-n)
+            l=range(random_number,random_number+n)
             if history_of_events.get(str(l),False):
-                continue 
+                continue
             history_of_events[str(l)]=True
-            event1=episode_events[min(m,n)]
-            event2=episode_events[max(m,n)]
-            data1,data2,data3,data4=create_yes_no_qa(event1,event2,show_name,season,episode)
-            temporal_questions.append(data1)
-            temporal_questions.append(data2)
-            temporal_questions.append(data3)
-            temporal_questions.append(data4)
+            selected_events=episode_events[random_number:random_number+n]
+            correct_answer=selected_events.copy()
+            options=generate_unique_options(correct_answer)
+            options.append(correct_answer)
+            # add I don't know option 
+            options.append("I don't know")
+            random.shuffle(selected_events)
+            shuffled_events=selected_events.copy()
+            random_q=random.choice(pool_for_sub_events).format(shuffled_events)
+            question=f"{MCQ_header} {random_q}"
+            random.shuffle(options)
+            answer_key=options.index(correct_answer)
+            data={}
+            data['answer_idx']=answer_key
+            data['options']=options
+            data['question']=question
+            data['season']=season
+            data['episode']=episode
+            data['show']=show_name
+            data['video_path_mp4']=f"/{show_name}/{season}/{episode}.mp4"
+            data['video_path_frames']=f"/{show_name}/{season}/{episode}"
+            data['video_subtitles']=f"{show_name}/{season}/{episode}.srt"
+            temporal_questions.append(data)
         
-            
-        # Ask questions about the correct sqeuence of some events say 3 or 4 events
-        # first select 3 or 4 ordered events randomly  
-        # shuffle the events 
-        # form the question 
-        # create the options
-        # create the answer key
-        history_of_events={}
-        for i in range(3):
-            for n in range(3,5):
-                random_number=random.randint(0,len(episode_events)-n)
-                l=range(random_number,random_number+n)
-                if history_of_events.get(str(l),False):
-                    continue
-                history_of_events[str(l)]=True
-                selected_events=episode_events[random_number:random_number+n]
-                correct_answer=selected_events.copy()
-                options=generate_unique_options(correct_answer)
-                options.append(correct_answer)
-                # add I don't know option 
-                options.append("I don't know")
-                random.shuffle(selected_events)
-                shuffled_events=selected_events.copy()
-                random_q=random.choice(pool_for_sub_events).format(shuffled_events)
-                question=f"{MCQ_header} {random_q}"
-                random.shuffle(options)
-                answer_key=options.index(correct_answer)
-                data={}
-                data['answer_idx']=answer_key
-                data['options']=options
-                data['question']=question
-                data['season']=season
-                data['episode']=episode
-                data['show']=show_name
-                data['video_path_mp4']=f"/{show_name}/{season}/{episode}.mp4"
-                data['video_path_frames']=f"/{show_name}/{season}/{episode}"
-                data['video_subtitles']=f"{show_name}/{season}/{episode}.srt"
-                temporal_questions.append(data)
-            
-        
-with open ('../../benchmark/temporal_questions_tvqa.json','w') as f:
+os.makedirs("../../benchmark",exist_ok=True)       
+with open ('../../benchmark/tvqa_temporal_events.json','w') as f:
     json.dump(temporal_questions,f,indent=4)
     
         

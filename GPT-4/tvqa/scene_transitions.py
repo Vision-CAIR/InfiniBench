@@ -14,9 +14,9 @@ from openai import OpenAI
 
 def parse_args():
     parser = argparse.ArgumentParser(description="question-answer-generation-using-gpt-4")
-    parser.add_argument("--scripts_folder", default='../../sources/scripts/house_scripts')
-    parser.add_argument("--output_dir", default='../../skills_output_full/scene_transitions/house')
-    parser.add_argument("--output_json", default="../../skills_output_full/scene_transitions/house.json")
+    parser.add_argument("--scripts_folder", default='path to the folder containing episodes Screenplay Scripts')
+    parser.add_argument("--output_dir", default='path to the folder where the output json files will be saved')
+    parser.add_argument("--output_json", default="path to the output json file where all the qa pairs will be saved")
     parser.add_argument("--api_key",required=True)
     parser.add_argument("--num_tasks", default=64, type=int)
     args = parser.parse_args()

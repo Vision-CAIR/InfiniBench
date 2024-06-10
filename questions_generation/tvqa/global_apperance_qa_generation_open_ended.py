@@ -6,7 +6,13 @@ import random
 # set the seed for reproducibility 
 random.seed(72) # it is my birthday 7th of February
 from tqdm import tqdm
-MCQ_header="Choose the correct option for the following question: "
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--gpt4_descriptions",required=True)
+parser.add_argument("--existed_episodes",default="../../existed_videos_tvqa.json")
+
+args = parser.parse_args()
+
 pool_of_questions=[
     "what is the correct squence of changing the outfits for {} in this episode?",
     "Can you outline the order of changing the outfits for {} in this episode?",
@@ -32,8 +38,8 @@ pool_of_questions=[
 
  
 benchmark_data=[]  
-ann_path="../../global_apprerance/tvqa/global_appreance.json"
-existed_episodes=json.load(open("../../analysis/existed_videos_tvqa.json",'r'))
+ann_path=args.gpt4_descriptions
+existed_episodes=json.load(open(args.existed_episodes,'r'))
 
 def generate_open_ended_answers(list_of_apparences):
     answer_str="First the appearance is "
@@ -64,7 +70,7 @@ for season in tqdm(global_apperance_data):
             data['video_subtitles'] = f"/bbt/{season}/{episode}.srt"
             benchmark_data.append(data)
 os.makedirs("../../benchmark", exist_ok=True)
-with open('../../benchmark/global_appreance_benchmark_open_ended.json', 'w') as f:
+with open('../../benchmark/global_appreance_open_ended.json', 'w') as f:
     json.dump(benchmark_data, f, indent=4)
             
         

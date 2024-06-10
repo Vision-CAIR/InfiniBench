@@ -4,6 +4,14 @@ import random
 # set the seed for reproducibility
 random.seed(72) # it is my birthday 7th of February
 from tqdm import tqdm
+
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--summarization_tvqa_json",required=True,help="Path to the json file containing the summarization data for TVQA")
+parser.add_argument("--summarization_movienet_json",required=True,help="Path to the json file containing the summarization data for MovieNet")
+args = parser.parse_args()
+
+
 summarization_questions_pool = [
     "Please provide a very detailed summary of the video.",
     "Can you give an in-depth summary of this video?",
@@ -22,7 +30,7 @@ summarization_questions_pool = [
 ]
 
 
-tvqa_data=json.load(open('../../scrapping/tvqa/imdb_summaries.json', 'r'))
+tvqa_data=json.load(open(args.summarization_tvqa_json, 'r'))
 benchmark_data=[]
 for show in tqdm (tvqa_data,desc="Processing TVQA data"):
     for season in tvqa_data[show]:
@@ -41,7 +49,7 @@ for show in tqdm (tvqa_data,desc="Processing TVQA data"):
             data['episode']=episode
             benchmark_data.append(data)
 
-movies_data=json.load(open('../../scrapping/movienet/movienet_summaries.json','r'))
+movies_data=json.load(open(args.summarization_movienet_json,'r'))
 for movie in tqdm(movies_data,desc="Processing MovieNet data"):
     summary=movies_data[movie]
     video_path=f"/{movie}"
@@ -55,5 +63,6 @@ for movie in tqdm(movies_data,desc="Processing MovieNet data"):
     benchmark_data.append(data)
     
 print(f"Total number of questions generated: {len(benchmark_data)}")
-with open('../../benchmark/final/mcq_open_ended/summarization.json','w') as f:
+os.makedirs('../../benchmark/final',exist_ok=True)
+with open('../../benchmark/final/summarization.json','w') as f:
     json.dump(benchmark_data,f,indent=4)

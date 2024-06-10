@@ -5,6 +5,12 @@ import ast
 import random
 # set the seed for reproducibility 
 random.seed(72) # it is my birthday 7th of February
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--gpt4_output",required=True)
+
+args = parser.parse_args()
+
 
 MCQ_header="Choose the correct option for the following question: "
 distractors=[
@@ -36,7 +42,7 @@ distractors=[
 "joining a dance class to learn salsa or tango"],   
 ]
 
-with open ('../skills_output_full/character_actions.json','r') as f:
+with open (args.gpt4_output,'r') as f:
     char_actions_qa_data=json.load(f)
 def generate_unique_options(correct_answer, num_options=3):
     global distractors
@@ -97,8 +103,8 @@ for key_name in char_actions_qa_data:
         data['video_subtitles'] = f"{show_name}/{season}/{episode}.srt"
         character_actions_qa.append(data)
         
-    
-with open ('../benchmark/character_actions_qa.json','w') as f:
+os.makedirs("../../benchmark",exist_ok=True)  
+with open ('../../benchmark/tvqa_character_actions.json','w') as f:
     json.dump(character_actions_qa,f,indent=4)
     
     

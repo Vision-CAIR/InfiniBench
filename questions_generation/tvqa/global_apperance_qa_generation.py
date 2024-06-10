@@ -6,6 +6,14 @@ import random
 # set the seed for reproducibility 
 random.seed(72) # it is my birthday 7th of February
 from tqdm import tqdm
+
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--gpt4_descriptions",required=True)
+parser.add_argument("--existed_episodes",default="../../existed_videos_tvqa.json")
+
+args = parser.parse_args()
+
 MCQ_header="Choose the correct option for the following question: "
 pool_of_questions=[
     "what is the correct squence of changing the outfits for {} in this episode?",
@@ -82,8 +90,8 @@ def generate_unique_options(correct_answer, num_options=3):
 
  
 benchmark_data=[]  
-ann_path="../../global_apprerance/tvqa/global_appreance.json"
-existed_episodes=json.load(open("../../analysis/existed_videos_tvqa.json",'r'))
+ann_path=args.gpt4_descriptions
+existed_episodes=json.load(open(args.existed_episodes,'r'))
 
 global_apperance_data = json.load(open(ann_path, 'r'))
 for season in tqdm(global_apperance_data):
@@ -118,7 +126,7 @@ for season in tqdm(global_apperance_data):
             data['video_subtitles'] = f"/bbt/{season}/{episode}.srt"
             benchmark_data.append(data)
 os.makedirs("../../benchmark", exist_ok=True)
-with open('../../benchmark/global_appreance_benchmark.json', 'w') as f:
+with open('../../benchmark/global_appreance.json', 'w') as f:
     json.dump(benchmark_data, f, indent=4)
             
         

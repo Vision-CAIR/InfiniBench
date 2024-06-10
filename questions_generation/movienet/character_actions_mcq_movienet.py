@@ -6,6 +6,11 @@ import random
 # set the seed for reproducibility 
 random.seed(72) # it is my birthday 7th of February
 
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--gpt4_output",required=True)
+
+args = parser.parse_args()
 MCQ_header="Choose the correct option for the following question: "
 distractors=[
     ["eating a Margherita pizza with extra cheese at a cozy Italian restaurant",
@@ -36,7 +41,7 @@ distractors=[
 "joining a dance class to learn salsa or tango"],   
 ]
 
-with open ('../../skills_output/movienet/character_actions_new.json','r') as f:
+with open (args.gpt4_output,'r') as f:
     char_actions_qa_data=json.load(f)
 def generate_unique_options(correct_answer, num_options=4):
     global distractors
@@ -92,8 +97,9 @@ for movie_name in char_actions_qa_data:
         data['video_subtitles'] = f"/{movie_name}.srt"
         character_actions_qa.append(data)
         
-    
-with open ('../../benchmark/character_actions_qa_movienet_mcq.json','w') as f:
+
+os.makedirs("../../benchmark",exist_ok=True) 
+with open ('../../benchmark/movienet_character_actions.json','w') as f:
     json.dump(character_actions_qa,f,indent=4)
     
     

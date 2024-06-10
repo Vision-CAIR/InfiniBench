@@ -5,9 +5,13 @@ import ast
 import random
 # set the seed for reproducibility 
 random.seed(72) # it is my birthday 7th of February
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--gpt4_output",required=True)
 
+args = parser.parse_args()
 
-with open ('../../skills_output/movienet/character_actions_new.json','r') as f:
+with open (args.gpt4_output,'r') as f:
     char_actions_qa_data=json.load(f)
 def convert_answer_to_string(actions_list):
     answer_str="First, "
@@ -33,8 +37,10 @@ for movie_name in char_actions_qa_data:
         data['video_subtitles'] = f"/{movie_name}.srt"
         character_actions_qa.append(data)
         
-    
-with open ('../../benchmark/character_actions_movienet_open_ended.json','w') as f:
+
+os.makedirs("../../benchmark",exist_ok=True)
+
+with open ('../../benchmark/movienet_character_actions_open_ended.json','w') as f:
     json.dump(character_actions_qa,f,indent=4)
     
     

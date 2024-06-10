@@ -5,8 +5,14 @@ import random
 random.seed(72) # it is my birthday 7th of February
 from tqdm import tqdm
 
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--scrapped_spoiler_questions",required=True,help="path to the scrapped spoiler questions data")
 
-spoiler_questions=json.load(open('../benchmark/movies_spoiler_questions.json', 'r'))
+args = parser.parse_args()
+
+
+spoiler_questions=json.load(open(args.scrapped_spoiler_questions, 'r'))
 print("number of movies in the spoiler questions data: ",len(spoiler_questions))
 benchmark_data=[]
 for movie in tqdm(spoiler_questions,desc="Processing MovieNet data"):

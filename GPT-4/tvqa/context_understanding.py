@@ -11,10 +11,10 @@ from openai import OpenAI
 
 def parse_args():
     parser = argparse.ArgumentParser(description="question-answer-generation-using-gpt-4")
-    parser.add_argument("--gt_caption_folder", default='../../sources/summaries/tvqa_summaries')
-    parser.add_argument("--gt_script_folder", default='../../sources/scripts/all_tvqa_scripts')
-    parser.add_argument("--output_dir", default='../../skills_output_full/tricky_questions_qa_2')
-    parser.add_argument("--output_json", default="../../skills_output_full/tricky_questions_qa_2.json")
+    parser.add_argument("--summaries_folder", default='path to the folder containing the episodes summaries')
+    parser.add_argument("--scripts_folder", default='path to the folder containing episodes Screenplay Scripts')
+    parser.add_argument("--output_dir", default='path to the folder where the output json files will be saved')
+    parser.add_argument("--output_json", default="path to the output json file where all the qa pairs will be saved")
     parser.add_argument("--api_key",required=True)
     parser.add_argument("--num_tasks", default=128, type=int)
     args = parser.parse_args()
@@ -127,8 +127,8 @@ def main():
     # Read ground truth captions.
     gt_captions = {}
     gt_scripts= {}
-    gt_files = sorted(os.listdir(args.gt_caption_folder))
-    gt_script_files =sorted(os.listdir(args.gt_script_folder))
+    gt_files = sorted(os.listdir(args.summaries_folder))
+    gt_script_files =sorted(os.listdir(args.scripts_folder))
     gt_files_new=[]
     for summ in gt_files:
         if summ not in gt_script_files:
@@ -149,13 +149,13 @@ def main():
         if gt_files[i]!=gt_script_files[i]:
             print("Mismatch: ", gt_files[i], gt_script_files[i])
     for file in gt_files:
-        with open(os.path.join(args.gt_caption_folder, file), mode='r', encoding='utf-8-sig') as f:
+        with open(os.path.join(args.summaries_folder, file), mode='r', encoding='utf-8-sig') as f:
             caption = f.read().replace('‘', "'").replace('’', "'")
             video_id = file[:-4]
             gt_captions[video_id] = caption
     
     for file in gt_script_files:
-        with open(os.path.join(args.gt_script_folder, file), mode='r', encoding='utf-8-sig') as f:
+        with open(os.path.join(args.scripts_folder, file), mode='r', encoding='utf-8-sig') as f:
             script = f.read().replace('‘', "'").replace('’', "'")
             video_id = file[:-4]
             gt_scripts[video_id] = script

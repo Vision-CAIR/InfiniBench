@@ -6,6 +6,13 @@ import random
 # set the seed for reproducibility 
 random.seed(72) # it is my birthday 7th of February
 
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--gpt4_output",required=True)
+
+args = parser.parse_args()
+
+
 MCQ_header="Choose the correct option for the following question: "
 pool_of_questions=[
     "what is the correct squence of events that happened in this movie?",
@@ -31,7 +38,7 @@ pool_for_sub_events=[
 ]
 
 
-with open ('../../skills_output/movienet/extracted_events_movienet_new.json','r') as f:
+with open (args.gpt4_output,'r') as f:
     events_data=json.load(f)
 
 def create_yes_no_qa (event_1,event_2,movie_name):
@@ -197,8 +204,9 @@ for movie_name in events_data:
             data['video_subtitles']=f"/{movie_name}.srt"
             temporal_questions.append(data)
         
-    
-with open ('../../benchmark/temporal_questions_movienet.json','w') as f:
+
+os.makedirs("../../benchmark",exist_ok=True) 
+with open ('../../benchmark/movienet_temporal_events.json','w') as f:
     json.dump(temporal_questions,f,indent=4)
     
     

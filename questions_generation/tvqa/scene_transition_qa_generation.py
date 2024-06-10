@@ -6,6 +6,14 @@ import random
 # set the seed for reproducibility 
 random.seed(72) # it is my birthday 7th of February
 from tqdm import tqdm
+import argparse
+parser = argparse.ArgumentParser(description="question-answer-generation")
+parser.add_argument("--gpt4_output",required=True)
+parser.add_argument("--existed_episodes",default="existed_videos_tvqa.json")
+
+args = parser.parse_args()
+
+
 MCQ_header="Choose the correct option for the following question: "
 pool_of_questions=[
     "what is the correct squence of scene transition in this episode?",
@@ -44,61 +52,48 @@ def generate_unique_options(correct_answer, num_options=4):
 
     return options
 
-ann_paths=[
-    "../../skills_output/tvqa/scene_transitions/friends.json",
-    "../../skills_output/tvqa/scene_transitions/bbt.json",
-    "../../skills_output/tvqa/scene_transitions/met.json",
-    "../../skills_output/tvqa/scene_transitions/grey.json",
-    "../../skills_output/tvqa/scene_transitions/house.json",
-    "../../skills_output/tvqa/scene_transitions/castle.json"
-]
- 
 benchmark_data=[]  
 
-existed_episodes=json.load(open("../../analysis/existed_videos_tvqa.json",'r'))
+existed_episodes=json.load(open(args.existed_episodes,'r'))
 print("Number of existed episodes: ", len(existed_episodes))
-print("existed episodes: ", existed_episodes)
-for ann_path in tqdm(ann_paths):
-    with open (ann_path,'r') as f:
-        scene_transitions=json.load(f)
 
-    show_name=ann_path.split('/')[-1].split('.')[0]
-    for episode in scene_transitions:
-        transitions_list=scene_transitions[episode]
-        if show_name=="friends":
-            name_list=episode.split('__')
-            season=name_list[0]
-            episode=name_list[1]
-        else:
-            season="season_"+str(int(episode.split('_')[2]))
-            episode="episode_"+str(int(episode.split('_')[4]))
-        if f"/{show_name}/{season}/{episode}" not in existed_episodes:
-            continue
-        correct_answer=transitions_list.copy()
-        options=generate_unique_options(transitions_list)
-        options.append(correct_answer)
-        # add I don't know option 
-        options.append("I don't know")
-        
-        random_q=random.choice(pool_of_questions)
-        question=f"{MCQ_header} {random_q}"
-        # shuffle the options 
-        random.shuffle(options)
-        answer_key=options.index(correct_answer)
-        data={}
-        data['answer_idx']=answer_key
-        data['options']=options
-        data['question']=question
-        data['show']=show_name
-        data['season']=season
-        data['episode']=episode
-        data['source']="tvqa"
-        data['video_path_mp4']=f"/{show_name}/{season}/{episode}.mp4"
-        data['video_path_frames']=f"/{show_name}/{season}/{episode}"
-        data['video_subtitles']=f"/{show_name}/{season}/{episode}.srt"  
-        benchmark_data.append(data)
+gpt4_output=args.gpt4_output
+
+with open (gpt4_output,'r') as f:
+    scene_transitions=json.load(f)
+
+for episode in scene_transitions:
+    transitions_list=scene_transitions[episode]
+    show_name=episode.split('_')[0]
+    season="season_"+str(int(episode.split('_')[2]))
+    episode="episode_"+str(int(episode.split('_')[4]))
+    if f"/{show_name}/{season}/{episode}" not in existed_episodes:
+        continue
+    correct_answer=transitions_list.copy()
+    options=generate_unique_options(transitions_list)
+    options.append(correct_answer)
+    # add I don't know option 
+    options.append("I don't know")
+    
+    random_q=random.choice(pool_of_questions)
+    question=f"{MCQ_header} {random_q}"
+    # shuffle the options 
+    random.shuffle(options)
+    answer_key=options.index(correct_answer)
+    data={}
+    data['answer_idx']=answer_key
+    data['options']=options
+    data['question']=question
+    data['show']=show_name
+    data['season']=season
+    data['episode']=episode
+    data['source']="tvqa"
+    data['video_path_mp4']=f"/{show_name}/{season}/{episode}.mp4"
+    data['video_path_frames']=f"/{show_name}/{season}/{episode}"
+    data['video_subtitles']=f"/{show_name}/{season}/{episode}.srt"  
+    benchmark_data.append(data)
 os.makedirs("../../benchmark",exist_ok=True)
-with open('../../benchmark/scene_transitions_benchmark.json','w') as f:
+with open('../../benchmark/scene_transitions.json','w') as f:
     json.dump(benchmark_data,f)
         
         
