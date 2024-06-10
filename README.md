@@ -8,34 +8,38 @@ Understanding long videos, ranging from tens of minutes to several hours, presen
 4) Human-centric, as the video sources come from movies and daily TV shows, with specific human-level question designs such as Movie Spoiler Questions that require critical thinking and comprehensive understanding.<br>
 
 Using VLV-Bench, we comprehensively evaluate existing Large Multi-Modality Models (LMMs) on each skill, including the commercial model Gemini 1.5 Flash and the open-source models. Evaluation shows significant challenges in our benchmark. We hope this benchmark will stimulate the LMMs community towards long video and human-level understanding.
+# Paper results for ranking the top commercial and open souce models:
+Tables 
+
 # How to download videos 
 1- TVQA videos <br>
-Download the original TVQA videos for short videos from [here](https://tvqa.cs.unc.edu/download_tvqa.html)
+Download the original TVQA videos for short videos from [here](https://tvqa.cs.unc.edu/download_tvqa.html)<br>
 Run the following commmand to convert the videos to long-form videos.<br>
 ```python
-cd process_tvqa_videos
-python convert_tvqa_from_short_to_long.py --train_path "path to the training annotation" --val_path "path to the validation annotation" --root_dir "path to the short clips directory" --full_videos_dir "path to save the full video episodes"
+python videos_preprocessing/convert_tvqa_from_short_to_long.py --train_path "path to the training annotation" --val_path "path to the validation annotation" --root_dir "path to the short clips directory" --full_videos_dir "path to save the full video episodes"
 ```
 this script will output the full video episodes in the full_videos_dir and json annotations for only the validation data called "tvqa_val_edited.json" that will be used as a local questions later. <br>
 
 To get the video .mp4 files 
-Run the following script 
+Run the following script or  [Download](https://huggingface.co/datasets/Vision-CAIR/VLV-Benchmark/tree/main/tvqa_mp4_videos_tar_files)
 ```python
-cd process_tvqa_videos
-python convert_tvqa_to_mp4_format.py --video_frames_dir "path to the long videos frames" --output_dir "path to save the MP4 videos"
+python videos_preprocessing/convert_to_mp4_format.py --video_frames_dir "path to the long videos frames" --output_dir "path to save the MP4 videos" --source "tvqa" --fps 3 
 ```
-You can download the TVQA subtitles from here[Download]() <br>
+You can download the TVQA subtitles from here[Download](https://huggingface.co/datasets/Vision-CAIR/VLV-Benchmark/blob/main/tvqa_subtitles.zip) <br>
 2- MovieNet Data <br>
 Dowlnoad the original MovieNet data from [here](https://opendatalab.com/OpenDataLab/MovieNet/tree/main/raw) <br>
 Filter out the movies that doesn't have shot subtitles<br>
 Run the following script to filter movienet<br>
 ```python
+python filter_movienet.py
 ```
 To get the video .mp4 files 
-Run the following script 
+Run the following script to the raw data or download our version from huggingface [Download_full_length](https://huggingface.co/datasets/Vision-CAIR/VLV-Benchmark/tree/main/Movienet_mp4_videos_full_length) or [Download_1fps](https://huggingface.co/datasets/Vision-CAIR/VLV-Benchmark/tree/main/Movienet_mp4_videos_1fps)
 ```python
-cd process_tvqa_videos
-python convert_movienet_to_mp4_format.py --video_frames_dir "path to the long videos frames" --output_dir "path to save the MP4 videos" --fps 1
+# to generare movies with the original frame rate use original_fps = True
+python videos_preprocessing/convert_to_mp4_format.py --video_frames_dir "path to the long videos frames" --output_dir "path to save the MP4 videos" --source "movienet" --original_fps --movies_has_subtitles "movies_has_subtitles.json" --movies_durations "movies_durations.json" 
+# to generate movies with 1 fps use original_fps = False and fps = 1 but take care that the video duration will be different from the original duration 
+python videos_preprocessing/convert_to_mp4_format.py --video_frames_dir "path to the long videos frames" --output_dir "path to save the MP4 videos" --source "movienet" --fps 1 --movies_has_subtitles "movies_has_subtitles.json" --movies_durations "movies_durations.json" 
 ```
 # Annotation files 
 You can find the annotation files for the 9 skills in huggingface datasets format [here](https://huggingface.co/datasets/Vision-CAIR/VLV-Benchmark/tree/main/Benchmark_annotations)
@@ -49,6 +53,7 @@ You can find the annotation files for the 9 skills in huggingface datasets forma
 5) We filtered out scripts for the movies that doesn't have shot subtitles from the MovieNet data.
 6) We filtered out scripts for the edpisodes that doesn't exist in Long TVQA.
 7) We scrapped the the spoiler questions for all the movies in movieNet.
+8) We scrapped the movies durations from IMDB.
 
 You can see the code for scrapping the data from IMDB [here](https://github.com/Vision-CAIR/Long_video_Bench/tree/main/scrapping) but don't need to re-run it as we provide the filtered data in the benchmark sources.
 ### Bechmark sources : 
@@ -149,18 +154,38 @@ We converted the questions of the validation split from the original TVQA to Lon
 python questions_generation/long_tvqa_questions.py --tvqa_val_edited "process_tvqa_videos/tvqa_val_edited.json"
 ```
 
-#Evaluation
+# Evaluation
+To use our evaluation scrip for accuracy and GPT4 score you should prepare your predictions in the following format 
+```python 
+[
+    {"Q":"question",  "A","answer", "pred":"model_pred"}  ,
+    {"Q":"question",  "A","answer", "pred":"model_pred"}  ,
+    {"Q":"question",  "A","answer", "pred":"model_pred"}  ,
+    ... 
+]
+```
+Then run the following script for accuracy evaluation for the skills that has multiple choice questions 
+```bash
+# set the parameters in the script
+bash evaluation/GPT4_eval/gpt4_accuracy.sh 
+```
+For the skills that has open-ended questions run the following script to get the GPT4 score
+```bash
+# set the parameters in the script
+bash evaluation/GPT4_eval/gpt4_score.sh 
+```
 
 
 
+# Citation
 If you're using VLV-Bench in your research or applications, please cite using this BibTeX:
 ```
 
 ```
 
-## Acknowledgements
+# Acknowledgements
 [Video-ChatGPT](https://mbzuai-oryx.github.io/Video-ChatGPT)
 
-## License
+# License
 This repository is under [BSD 3-Clause License](LICENSE.md).
 
