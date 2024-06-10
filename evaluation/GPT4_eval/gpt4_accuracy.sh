@@ -10,11 +10,15 @@
 #SBATCH --nodes=1
 ## run the application:
 
-PRED="/ibex/project/c2106/kirolos/Long_video_Bench/evaluation/LWM_output/local_vision_text.json"
-OUTPUT_DIR="lwm_eval/mcq/local_vision_text"
-# rm -rf $OUTPUT_DIR
+# PRED="/ibex/project/c2106/kirolos/Long_video_Bench/evaluation/Goldfish_output/character_actions.json"
+# OUTPUT_DIR="goldfish/mcq/character_actions"
+# NUM_TASKS=128
+# API_KEY="gpt4o_key"
+
+PRED="path to the json prediction file"
+OUTPUT_DIR="path to the output directory"
 NUM_TASKS=128
-API_KEY="hhhh"
+API_KEY="gpt4o_key"
 
 
 

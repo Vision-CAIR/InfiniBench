@@ -6,11 +6,6 @@ import ast
 from multiprocessing.pool import Pool
 from openai import OpenAI
 
-client = OpenAI(
-    # This is the default and can be omitted
-    api_key="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",
-)
-
 
 def parse_args():
     parser = argparse.ArgumentParser(description="question-answer-generation-using-gpt-3")
@@ -21,6 +16,13 @@ def parse_args():
     parser.add_argument("--num_tasks", required=True, type=int, help="Number of splits.")
     args = parser.parse_args()
     return args
+
+# Parse arguments.
+args = parse_args()
+client = OpenAI(
+    # This is the default and can be omitted
+    api_key=args.api_key
+)
 
 
 def annotate(prediction_set, caption_files, output_dir):
@@ -96,9 +98,6 @@ def main():
     """
     Main function to control the flow of the program.
     """
-    # Parse arguments.
-    args = parse_args()
-
     file = open(args.pred_path)
     pred_contents = json.load(file)
 
