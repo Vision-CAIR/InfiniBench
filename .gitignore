@@ -22,5 +22,5 @@ evaluation/Moviechat_output
 evaluation/GPT4_eval/goldfish
 sources_filtered
 # ignore movienet scene transitions
-# GPT-4/movienet/scene_transitions.py
-# movienet_scene_transition
+GPT-4/movienet/scene_transitions.py
+movienet_scene_transition
