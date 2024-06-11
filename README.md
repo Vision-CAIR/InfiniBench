@@ -1,6 +1,6 @@
 # VLV-Bench: A Comprehensive benchmark for very long-form videos understanding
 # Overview
-![VLV-Bench teaser figure](repo_imags/VLV_Bench.JPG)
+![VLV-Bench teaser figure](repo_imags/teaser_fig_new.jpg)
 Understanding long videos, ranging from tens of minutes to several hours, presents unique challenges in video comprehension. Despite the increasing importance of long-form video content, existing benchmarks primarily focus on shorter clips. To address this gap, we introduce a comprehensive benchmark for Very Long Videos understanding (VLV-Bench), which presents
 1) The longest video duration, averaging 76.34 minutes.
 2) The largest number of question-answer pairs, 108.2K.
@@ -44,7 +44,7 @@ python videos_preprocessing/convert_to_mp4_format.py --video_frames_dir "path to
 # Annotation files 
 You can find the annotation files for the 9 skills in huggingface datasets format [here](https://huggingface.co/datasets/Vision-CAIR/VLV-Benchmark/tree/main/Benchmark_annotations)
 # How to re-create the Benchmark  
-![annotation_pipeline](repo_imags/annotation_pipeline.jpg)
+![annotation_pipeline](repo_imags/annotation_pipeline_new.jpg)
 ## Prepare the data sources
 ### Data scrapping 
 1) We scrapped the all the TVQA summaries from IMDB. 
@@ -188,4 +188,3 @@ If you're using VLV-Bench in your research or applications, please cite using th
 
 # License
 This repository is under [BSD 3-Clause License](LICENSE.md).
-
