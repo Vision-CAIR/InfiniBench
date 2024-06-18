@@ -10,10 +10,6 @@
 #SBATCH --nodes=1
 ## run the application:
 
-# PRED="/ibex/project/c2106/kirolos/Long_video_Bench/evaluation/Goldfish_output/character_actions.json"
-# OUTPUT_DIR="goldfish/mcq/character_actions"
-# NUM_TASKS=128
-# API_KEY="gpt4o_key"
 
 PRED="path to the json prediction file"
 OUTPUT_DIR="path to the output directory"
@@ -22,7 +18,7 @@ API_KEY="gpt4o_key"
 
 
 
-python GPT4_MCQ.py \
+python GPT4_MCQ.py\
     --pred_path ${PRED} \
     --output_dir "${OUTPUT_DIR}/fewshot_accuracy" \
     --output_json "${OUTPUT_DIR}/fewshot_accuracy_results.json"\

@@ -5,7 +5,7 @@ import json
 import ast
 from multiprocessing.pool import Pool
 from openai import OpenAI
-
+import time
 
 def parse_args():
     parser = argparse.ArgumentParser(description="question-answer-generation-using-gpt-3")
@@ -33,8 +33,7 @@ def annotate(prediction_set, caption_files, output_dir):
     for file in caption_files:
         key = file[:-5] # Strip file extension
         qa_set = prediction_set[key]
-        question = qa_set['q']
-        answer = qa_set['a']
+        options=qa_set['options_str']
         pred = qa_set['pred']
         try:
             completion = client.chat.completions.create(
@@ -44,28 +43,27 @@ def annotate(prediction_set, caption_files, output_dir):
                     "role": "system",
                     "content": (
                         "You are an intelligent chatbot designed to evaluate the correctness of generative outputs for multiple-choice questions (MCQs). "
-                        "Your task is to compare the predicted answer with the correct answer and determine if the model chose the correct option. Here's how you can accomplish the task:\n"
+                        "Your task is to match the predicted answer with one of the provided options, which include an 'I don't know' option. If there is no match between the predicted answer and the options, choose the option that says 'I don't know'. Here's how you can accomplish the task:\n"
                         "------\n"
                         "## INSTRUCTIONS:\n"
-                        "- Focus on the meaningful match between the predicted answer and the correct answer.\n"
+                        "- Focus on finding a meaningful match between the predicted answer and the correct option.\n"
                         "- Consider synonyms or paraphrases as valid matches.\n"
-                        "- Determine if the generated answer is correct or incorrect.\n"
-                        "- Provide only 'yes' or 'no' to represent your evaluation decision.\n"
-                        "- Evaluate as a human would, not as a machine.\n"
-                        "- Provide your answer in the form of a Python dictionary string with the key 'decision', such as {'decision': 'yes'}.\n"
+                        "- Choose an option only if you believe there is sufficient evidence to directly derive the answer from the predicted information or indirectly with minimal reasoning. If there isn't enough evidence to support any option, simply select the option with 'I don't know.' \n"
+                        "- Provide only the integer that represents the option number for your evaluation decision.\n"
+                        "- Evaluate as a human would, considering context and meaning, not just exact words.\n"
+                        "- Provide your answer in the form of a Python dictionary string with the key 'decision', such as {'decision': 3}.\n"
                     )
                 },
                 {
                     "role": "user",
                     "content": (
                         "Please evaluate the following question-answer pair:\n\n"
-                        f"Question: {question}\n"
-                        f"Correct Answer: {answer}\n"
+                        f"Options: {options}\n"
                         f"Predicted Answer: {pred}\n\n"
-                        "Provide your evaluation as a decision where 'yes' means the model chose the correct option and 'no' means the model chose the wrong option.\n"
+                        "Provide your evaluation as a decision with the matched option number.\n"
                         "Generate the response in the form of a Python dictionary string with the key 'decision'.\n"
                         "DO NOT PROVIDE ANY OTHER OUTPUT TEXT OR EXPLANATION. Only provide the Python dictionary string. "
-                        "For example, your response should look like this: {'decision': 'yes'}.\n"
+                        "For example, your response should look like this: {'decision': 1}.\n"
                         "Do not include any other information in your response such as ```python```."
                     )
                 }
@@ -85,6 +83,7 @@ def annotate(prediction_set, caption_files, output_dir):
             # Save the question-answer pairs to a json file.
             with open(f"{output_dir}/{key}.json", "w") as f:
                 json.dump(result_qa_pair, f)
+
 
         except Exception as e:
             print(f"Error processing file '{key}': {e}")
@@ -130,7 +129,9 @@ def main():
         question = sample['Q']
         answer = sample['A']
         pred = sample['pred']
-        qa_set = {"q": question, "a": answer, "pred": pred}
+        options = sample['options_str']
+        answer_idx=sample['answer_idx']
+        qa_set = {"q": question, "a": answer, "pred": pred, "options_str": options, "answer_idx": answer_idx}
         prediction_set[id] = qa_set
 
     num_tasks = args.num_tasks
@@ -181,24 +182,27 @@ def main():
     print("All evaluation completed!")
 
     # Calculate accuracy
-    yes_counter=0
-    no_counter=0
+    correct_answer=0
+    wrong_answer=0
     for key, result in combined_contents.items():
         # Computing score
         try :
-            pred = result[0]['decision']
-            if pred == 'yes':
-                yes_counter+=1
-            elif pred == 'no':
-                no_counter+=1
+            answer_idx= int(result[1]['answer_idx'])
+            pred = int(result[0]['decision'])
+            if pred == answer_idx:
+                print("Ground truth :",result[1]['a'])
+                print("Pred :",result[1]['pred'])
+                correct_answer+=1
+            else:
+                wrong_answer+=1
         except:
             print("decision not found for", key)
             continue
     
-    total = yes_counter + no_counter
-    accuracy = yes_counter/total
-    print("yes_counter:", yes_counter)
-    print("no_counter:", no_counter)
+    total = correct_answer + wrong_answer
+    accuracy = correct_answer/total
+    print("correct_answer:", correct_answer)
+    print("wrong_answer:", wrong_answer)
     print("Accuracy:", accuracy)
     
 
