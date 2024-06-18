@@ -1,15 +1,35 @@
 # VLV-Bench: A Comprehensive benchmark for very long-form videos understanding
 # Overview
 ![VLV-Bench teaser figure](repo_imags/teaser_fig_new.jpg)
-Understanding long videos, ranging from tens of minutes to several hours, presents unique challenges in video comprehension. Despite the increasing importance of long-form video content, existing benchmarks primarily focus on shorter clips. To address this gap, we introduce a comprehensive benchmark for Very Long Videos understanding (VLV-Bench), which presents
-1) The longest video duration, averaging 76.34 minutes.
-2) The largest number of question-answer pairs, 108.2K.
-3) Diversity in questions that examine nine different skills and include both multiple-choice questions and open-ended questions.
-4) Human-centric, as the video sources come from movies and daily TV shows, with specific human-level question designs such as Movie Spoiler Questions that require critical thinking and comprehensive understanding.<br>
+Understanding long videos, ranging from tens
+of minutes to several hours, presents unique
+challenges in video comprehension. Despite
+the increasing importance of long-form video
+content, existing benchmarks primarily focus
+on shorter clips. To address this gap, we introduce a comprehensive benchmark for Very
+Long Videos understanding (VLV-Bench),
+which presents 1) The longest video duration,
+averaging 76.34 minutes; 2) The largest number of question-answer pairs, 108.2K; 3) Diversity in questions that examine nine different
+skills and include both multiple-choice questions and open-ended questions; 4) Humancentric, as the video sources come from movies
+and daily TV shows, with specific human-level
+question designs such as Movie Spoiler Questions that require critical thinking and comprehensive understanding. Using VLV-Bench, we
+comprehensively evaluate existing Large MultiModality Models (LMMs) on each skill, including the commercial model Gemini 1.5 Flash
+and the open-source models. The evaluation
+shows significant challenges in our benchmark.Our results show that the best AI models such
+Gemini struggles to perform well with 42.72%
+average accuracy and 2.71 out of 5 average
+score. We hope this benchmark will stimulate the LMMs community towards long video
+and human-level understanding.
+# Leaderboard for top commercial and open souce models:
+![results_1](repo_imags/results_1.JPG)
+# High level aggregated skills:
+![aggregated_skills](repo_imags/skills_high_level.JPG)
+# Leaderboard for the high level aggregated skills:
+![results_2](repo_imags/results_2.JPG)
+# Benchmark statistics:
+![benchmark_statistics_1](repo_imags/statistics_1_with_desc.JPG)
 
-Using VLV-Bench, we comprehensively evaluate existing Large Multi-Modality Models (LMMs) on each skill, including the commercial model Gemini 1.5 Flash and the open-source models. Evaluation shows significant challenges in our benchmark. We hope this benchmark will stimulate the LMMs community towards long video and human-level understanding.
-# Paper results for ranking the top commercial and open souce models:
-Tables 
+![benchmark_statistics_2](repo_imags/statistics_2_with_desc.JPG)
 
 # How to download videos 
 1- TVQA videos <br>
@@ -155,14 +175,24 @@ python questions_generation/long_tvqa_questions.py --tvqa_val_edited "process_tv
 ```
 
 # Evaluation
-To use our evaluation scrip for accuracy and GPT4 score you should prepare your predictions in the following format 
+To use our evaluation scrip for accuracy and GPT4 score you should prepare each skill prediction file in the following format.
 ```python 
+# for multiple choice questions
+[
+    {"Q":"question",  "A","answer", "pred":"model_pred","options_str":"option 0 : option sentence \n option 1 option sentence \n ...","answer_idx":"correct option index"}  ,
+    {"Q":"question",  "A","answer", "pred":"model_pred","options_str":"option 0 : option sentence \n option 1 option sentence \n ...","answer_idx":"correct option index"}  ,
+    {"Q":"question",  "A","answer", "pred":"model_pred","options_str":"option 0 : option sentence \n option 1 option sentence \n ...","answer_idx":"correct option index"}  ,
+    ... 
+]
+
+# for open ended questions 
 [
     {"Q":"question",  "A","answer", "pred":"model_pred"}  ,
     {"Q":"question",  "A","answer", "pred":"model_pred"}  ,
     {"Q":"question",  "A","answer", "pred":"model_pred"}  ,
     ... 
 ]
+
 ```
 Then run the following script for accuracy evaluation for the skills that has multiple choice questions 
 ```bash
@@ -174,8 +204,6 @@ For the skills that has open-ended questions run the following script to get the
 # set the parameters in the script
 bash evaluation/GPT4_eval/gpt4_score.sh 
 ```
-
-
 
 # Citation
 If you're using VLV-Bench in your research or applications, please cite using this BibTeX:
