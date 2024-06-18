@@ -64,7 +64,7 @@ python videos_preprocessing/convert_to_mp4_format.py --video_frames_dir "path to
 # Annotation files 
 You can find the annotation files for the 9 skills in huggingface datasets format [here](https://huggingface.co/datasets/Vision-CAIR/VLV-Benchmark/tree/main/Benchmark_annotations)
 # How to re-create the Benchmark  
-![annotation_pipeline](repo_imags/annotation_pipeline_new.jpg)
+![annotation_pipeline](repo_imags/full_annotation_pileline.JPG)
 ## Prepare the data sources
 ### Data scrapping 
 1) We scrapped the all the TVQA summaries from IMDB. 
