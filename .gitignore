@@ -21,8 +21,21 @@ evaluation/LWM_output
 evaluation/Moviechat_output
 evaluation/GPT4_eval/goldfish
 sources_filtered
+evaluation/llama-vid
 evaluation/GPT4_eval/llama-vid
 evaluation/Gemini
+gpt4_video
+evaluation/GPT4_eval/gemini
+evaluation/Run_gemini
+evaluation/final_gemini_outputs
+evaluation/final_gemini_outputs_edited
+evaluation/edit_for_new_mcq_eval.py
+evaluation/edit_gemini_for_new_mcq_eval.py
+evaluation/llama-vid_edited
+evaluation/LWM_output_edited
+evaluation/Moviechat_output_edited
+
 # ignore movienet scene transitions
 GPT-4/movienet/scene_transitions.py
 movienet_scene_transition
+
