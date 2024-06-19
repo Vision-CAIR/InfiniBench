@@ -73,7 +73,7 @@ You can find the annotation files for the 9 skills in huggingface datasets forma
 5) We filtered out scripts for the movies that doesn't have shot subtitles from the MovieNet data.
 6) We filtered out scripts for the edpisodes that doesn't exist in Long TVQA.
 7) We scrapped the the spoiler questions for all the movies in movieNet.
-8) We scrapped the movies durations from IMDB.
+8) We scrapped the movies durations from IMDB. 
 
 You can see the code for scrapping the data from IMDB [here](https://github.com/Vision-CAIR/Long_video_Bench/tree/main/scrapping) but don't need to re-run it as we provide the filtered data in the benchmark sources.
 ### Bechmark sources : 
