@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="VLV-Benchmark">
+  <meta name="keywords" content="Long video benchmark,long video understanding,benchmarks">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VLV-Benchmark</title>
+
+
+  <meta name="google-site-verification" content="6lbYN1vX7A4sD8SrVniq84UEKyEUSBgxeP7d3FjuuK0" />
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+   <link rel="icon" href="images/icon.png">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <link rel="shortcut icon" href="path/to/favicon.ico" type="image/x-icon">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  </head>
+
+  <style>
+
+    #main{
+        position: relative;;
+        width: 1200px;
+    }
+
+    .box{
+        float: left;
+        padding: 15px 0 0 15px;
+/*        background-color: red;*/
+    }
+
+    .pic{
+        width: 500px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .pic img{
+        width: 800px;
+    }
+
+  </style>
+  <body>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+           <div class="title_container">
+        <img src="images/icon.png" width="80" height="80">
+        <h1 class="title is-1 publication-title">VLV-Benchmark</h1>
+    </div>
+          <h2 class="title is-2 publication-title">A Comprehensive benchmark
+            for very long-form videos understanding</h2>
+          <div class="is-size-5">
+            <span class="author-block">
+                <a href="https://www.linkedin.com/in/kirolos-a-ataallah-631755123/" style="color:#008AD7;font-weight:normal;">Kirolos Ataallah
+                </a>,                
+            </span>
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/chenhui-gou-9201081a1/" style="color:#008AD7;font-weight:normal;">Chenhui Gou*</a>,</span>
+            <span class="author-block">
+              <a href="https://eslambakr.github.io/" style="color:#008AD7;font-weight:normal;">Eslam Abdelrahman*</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://kpahwa16.github.io/" style="color:#F2A900;font-weight:normal;">Khushbu Pahwa</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://dingjiansw101.github.io/" style="color:#008AD7;font-weight:normal;">Jian Ding</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.mohamed-elhoseiny.com/" style="color:#008AD7;font-weight:normal;">Mohamed Elhoseiny</a>
+            </span>
+
+          </div>
+
+          <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><b style="color:#008AD7; font-weight:normal">&#x25B6 </b> King Abdullah University of Science and Technology </span>
+            <span class="author-block"><b style="color:#F2A900; font-weight:normal">&#x25B6 </b>RICE University </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+          </div>
+          <br>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="http://arxiv.org/abs/2404.03413" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://github.com/Vision-CAIR/VLV-Benchmark" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+
+              <span class="link-block">
+                      <a href="https://huggingface.co/datasets/Vision-CAIR/VLV-Benchmark/tree/main" target="_blank"
+                         class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        🤗
+                      </span>
+                      <span>Dataset</span>
+                    </a>
+                  </span>
+
+<!--              <span class="link-block">-->
+<!--                <a href="#videoDemo" class="external-link button is-normal is-rounded is-dark">-->
+<!--                  <span class="icon">-->
+<!--                    <i class="fab fa-youtube"></i>-->
+<!--                  </span>-->
+<!--                  <span>Video</span>-->
+<!--                </a>-->
+<!--              </span>-->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<link rel="stylesheet" type="text/css" href="js/simple_style.css" />
+<script type="text/javascript" src="js/simple_swiper.js"></script>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+           Understanding long videos, ranging from tens
+          of minutes to several hours, presents unique
+          challenges in video comprehension. Despite
+          the increasing importance of long-form video
+          content, existing benchmarks primarily focus
+          on shorter clips. To address this gap, we introduce a comprehensive benchmark for Very
+          Long Videos understanding (VLV-Bench),
+          which presents 1) The longest video duration,
+          averaging 76.34 minutes; 2) The largest number of question-answer pairs, 108.2K; 3) Diversity in questions that examine nine different
+          skills and include both multiple-choice questions and open-ended questions; 4) Humancentric, as the video sources come from movies
+          and daily TV shows, with specific human-level
+          question designs such as Movie Spoiler Questions that require critical thinking and comprehensive understanding. Using VLV-Bench, we
+          comprehensively evaluate existing Large MultiModality Models (LMMs) on each skill, including the commercial model Gemini 1.5 Flash
+          and the open-source models. The evaluation
+          shows significant challenges in our benchmark.Our results show that the best AI models such
+          Gemini struggles to perform well with 42.72%
+          average accuracy and 2.71 out of 5 average
+          score. We hope this benchmark will stimulate the LMMs community towards long video
+          and human-level understanding.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <br>
+    <!-- Paper Model. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Benchmark skills</h2>
+        <img id="teaser_fig" width="80%" src="repo_imags/teaser_fig_new.jpg">
+        <h3 class="subtitle has-text-centered">
+          <p style="font-family:Times New Roman"><b>The set of skills introduced by VLV-Benchmark includes a total of 9 skills. The figure includes two
+question examples for two distinct skills: the left example illustrates the Global Appearance skill, and the right
+example illustrates the Scene Transition skill.</b></p>
+        </h3>
+        <br>
+        <br>
+
+      </div>
+    </div>
+
+    <!-- Paper Model. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h4 class="title is-4">Comparison between VLV-bench and existing video understanding benchmarks.</h4>
+        <img id="model" width="80%" src="repo_imags/comparison_table.JPG">
+        <h3 class="subtitle has-text-centered">
+          <p style="font-family:Times New Roman"><b>VLV-bench has
+the largest QA pairs, the most videos, and the longest average duration. (Note: Global Q stands for whether any
+challenging questions are designed to explain the whole video. VS is the video’s script, and VSum is the summary
+of the video.)</b></p>
+        </h3>
+        <br>
+        <br>
+
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h4 class="title is-4">Benchmark statistics.</h4>
+        <img id="statistics" width="80%" src="repo_imags/statistics_1.JPG">
+        <h3 class="subtitle has-text-centered">
+          <p style="font-family:Times New Roman"><b>Left) Number of questions distribution for each skill set. Right) Number of videos for each skill.)</b></p>
+        </h3>
+        <img id="statistics_2" width="80%" src="repo_imags/statistics_2.JPG">
+        <h3 class="subtitle has-text-centered">
+          <p style="font-family:Times New Roman"><b>Data statistics. On the left, we report the number of videos and their length in hours from each data source:
+TVQA and MovieNet datasets. In the middle, we demonstrate the number of questions. On the right, we show the
+histogram of the lengths of the questions and answers.</b></p>
+        </h3>
+
+        <br>
+        <br>
+
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h4 class="title is-4">Full annotation pipeline.</h4>
+        <img id="annotation_pipeline" width="80%" src="repo_imags/full_annotation_pileline.JPG">
+        <h3 class="subtitle has-text-centered">
+          <p style="font-family:Times New Roman"><b>Full annotation pipeline for VLV-Bench skill set. The upper section depicts the global appearance pipeline,
+while the lower section illustrates the question generation using GPT-4. The gates for video summary and video
+transcript indicate that some skills utilize only the summary, others use only the transcript, and some use both.)</b></p>
+        </h3>
+        <br>
+        <br>
+
+      </div>
+    </div>
+
+    <!-- Paper Model. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Overall performance. The overall performance
+of different models on the VLV-bench is shown in
+Table 2 (j). Three findings can be observed: (1) All
+models’ performance is relatively lower compared
+to other benchmarks (e.g., Movie-chat benchmark),
+highlighting the unique challenges of our benchmark, such as longer duration. (2) Gemini-Flash
+1.5 achieves the best performance on both multiplechoice and open-ended questions, with 47.72 accuracy (0-100) and 2.70 GPT4-score (0-5). There
+is also a large performance gap between Gemini
+and other open-source models. (3) For open-source
+models, LLama-vid achieves the best result. with
+17.15 accuracy and 1.7 GPT4-score. One reason
+may be that LLama-vid is pre-trained with longer
+duration QA-pairs, which helps handle longer sequences.<br>
+Performance on specific skills. Table 2 (a)-(i)
+shows the performance of SOTA long video
+understanding models on each skill. The performance varies significantly among different skills,
+highlighting the unique challenges introduced by
+each one. Obeservation of the results: (1) scene
+transition is the most difficult MCQ question type,
+with Gemini achieving only 29.48% accuracy. The
+potential reason for the low performance is that
+this question requires global reasoning across the
+entire hour-long video instead of one clip. (2) all
+models struggle with Movie Spoiler questions
+in open-ended questions. The difficulty lies in
+the need for deeper understanding and reasoning
+to get the correct answer. Since Movie Spoiler
+questions are meaningful for human-centric video
+understanding, current model capabilities need
+improvement. (3) All open-source models’ results
+on MCQ are below random choice, except for
+the Local visual+context questions. This shows
+that the main challenge for existing models is
+long-sequence global reasoning.<br>
+            Performance on Four Types of Questions. As
+introduced in Section 3.1 in the main paper, in the VLV-benchmark,
+questions for each skill can be identified as one of
+four high-level types: Global visual, Global contextual, Global vision + text, and Local vision +
+context. The results for each type of question are
+provided in Table 3. Only two models, Gemini
+Flash 1.5 and LLama-VID accept both video and
+video subtitles among these SOTA models. The table clearly shows that LLama-VID outperforms the
+other two open-source models for questions requiring context understanding. The main reason for the
+poor performance of LWM and MovieChat is that
+these two models make predictions from video only,
+missing important text information. This highlights
+the importance of long video understanding models handling both modalities. Additionally, global
+contextual questions are challenging for all models,
+requiring complex reasoning.</b>:
+          </p>
+        </div>
+        <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+       <img id="results_1" width="80%" src="repo_imags/results_1.JPG">
+          <br>
+         <h4 class="title is-4">High level aggregated skills.</h4>
+        <img id="agregated_skills" width="60%" src="repo_imags/skills_high_level.JPG">
+           <h4 class="title is-4">Results for the high level aggregated skills.</h4>
+        <img id="results_2" width="80%" src="repo_imags/results_2.JPG">
+
+      </div>
+    </div>
+      </div>
+    </div>
+    <br>
+  </div>
+
+</section>
+
+<script src="js/Underscore-min.js"></script>
+<script src="js/index.js"></script>
+
+<section class="section">
+  <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Examples</h2>
+          <div>
+            <img src="repo_imags/linking_multiple_events.jpg" alt="Linking multiple events questions example">
+            <img src="repo_imags/temporal_questions.jpg" alt="Temporal order of events questions example">
+            <img src="repo_imags/local_vision_context.jpg" alt="Local questions example">
+            <img src="repo_imags/context_understanding.jpg" alt="Deep context understanding questions skill">
+            <img src="repo_imags/summarization.jpg" alt="Summarization questions example">
+        </div>
+    </div>
+  </div>
+    </div>
+  <!--/ Results. -->
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+
+<!--@article{tbd,-->
+<!--  title={MiniGPT4-Video: Advancing Multimodal LLMs for Video Understanding with Interleaved Visual-Textual Tokens},-->
+<!--  author={},-->
+<!--  journal={arXiv preprint arXiv:tbd},-->
+<!--  year={2024}-->
+<!--}-->
+    </code></pre>
+  </div>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgement</h2>
+    <p>
+      This website is adapted from <a
+      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
+                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+      Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+</body>
+
+</html>
