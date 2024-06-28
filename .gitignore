@@ -34,7 +34,7 @@ evaluation/edit_gemini_for_new_mcq_eval.py
 evaluation/llama-vid_edited
 evaluation/LWM_output_edited
 evaluation/Moviechat_output_edited
-
+evaluation/reproduce_results
 # ignore movienet scene transitions
 GPT-4/movienet/scene_transitions.py
 movienet_scene_transition

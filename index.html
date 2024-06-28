@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="VLV-Benchmark">
+        content="InfiniBench">
   <meta name="keywords" content="Long video benchmark,long video understanding,benchmarks">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VLV-Benchmark</title>
+  <title>InfiniBench</title>
 
 
   <meta name="google-site-verification" content="6lbYN1vX7A4sD8SrVniq84UEKyEUSBgxeP7d3FjuuK0" />
@@ -66,10 +66,9 @@
         <div class="column has-text-centered">
            <div class="title_container">
         <img src="images/icon.png" width="80" height="80">
-        <h1 class="title is-1 publication-title">VLV-Benchmark</h1>
+        <h1 class="title is-1 publication-title">InfiniBench</h1>
     </div>
-          <h2 class="title is-2 publication-title">A Comprehensive benchmark
-            for very long-form videos understanding</h2>
+          <h2 class="title is-2 publication-title">A Comprehensive Benchmark for Large Multimodal Models in Very Long Video Understanding</h2>
           <div class="is-size-5">
             <span class="author-block">
                 <a href="https://www.linkedin.com/in/kirolos-a-ataallah-631755123/" style="color:#008AD7;font-weight:normal;">Kirolos Ataallah
@@ -114,7 +113,7 @@
               </span>
 
               <span class="link-block">
-                <a href="https://github.com/Vision-CAIR/VLV-Benchmark" target="_blank"
+                <a href="https://github.com/Vision-CAIR/InfiniBench" target="_blank"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -124,7 +123,7 @@
               </span>
 
               <span class="link-block">
-                      <a href="https://huggingface.co/datasets/Vision-CAIR/VLV-Benchmark/tree/main" target="_blank"
+                      <a href="https://huggingface.co/datasets/Vision-CAIR/InfiniBench/tree/main" target="_blank"
                          class="external-link button is-normal is-rounded is-dark">
                       <span class="icon">
                         🤗
@@ -163,25 +162,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-           Understanding long videos, ranging from tens
-          of minutes to several hours, presents unique
-          challenges in video comprehension. Despite
-          the increasing importance of long-form video
-          content, existing benchmarks primarily focus
-          on shorter clips. To address this gap, we introduce a comprehensive benchmark for Very
-          Long Videos understanding (VLV-Bench),
-          which presents 1) The longest video duration,
-          averaging 76.34 minutes; 2) The largest number of question-answer pairs, 108.2K; 3) Diversity in questions that examine nine different
-          skills and include both multiple-choice questions and open-ended questions; 4) Humancentric, as the video sources come from movies
-          and daily TV shows, with specific human-level
-          question designs such as Movie Spoiler Questions that require critical thinking and comprehensive understanding. Using VLV-Bench, we
-          comprehensively evaluate existing Large MultiModality Models (LMMs) on each skill, including the commercial model Gemini 1.5 Flash
-          and the open-source models. The evaluation
-          shows significant challenges in our benchmark.Our results show that the best AI models such
-          Gemini struggles to perform well with 42.72%
-          average accuracy and 2.71 out of 5 average
-          score. We hope this benchmark will stimulate the LMMs community towards long video
-          and human-level understanding.
+          Understanding long videos, ranging from tens of minutes to several hours, presents unique challenges in video comprehension. Despite the increasing importance of long-form video content, existing benchmarks primarily focus on shorter clips. To address this gap, we introduce InfiniBench a comprehensive benchmark for very long video understanding, which presents 1) The longest video duration, averaging 76.34 minutes; 2) The largest number of question-answer pairs, 108.2K; 3) Diversity in questions that examine nine different skills and include both multiple-choice questions and open-ended questions; 4) Humancentric, as the video sources come from movies and daily TV shows, with specific human-level question designs such as Movie Spoiler Questions that require critical thinking and comprehensive understanding. Using InfiniBench, we comprehensively evaluate existing Large MultiModality Models (LMMs) on each skill, including the commercial model Gemini 1.5 Flash and the open-source models. The evaluation shows significant challenges in our benchmark.Our results show that the best AI models such Gemini struggles to perform well with 42.72% average accuracy and 2.71 out of 5 average score. We hope this benchmark will stimulate the LMMs community towards long video and human-level understanding.
           </p>
         </div>
       </div>
@@ -194,7 +175,7 @@
         <h2 class="title is-3">Benchmark skills</h2>
         <img id="teaser_fig" width="80%" src="repo_imags/teaser_fig_new.jpg">
         <h3 class="subtitle has-text-centered">
-          <p style="font-family:Times New Roman"><b>The set of skills introduced by VLV-Benchmark includes a total of 9 skills. The figure includes two
+          <p style="font-family:Times New Roman"><b>The set of skills introduced by InfiniBench includes a total of 9 skills. The figure includes two
 question examples for two distinct skills: the left example illustrates the Global Appearance skill, and the right
 example illustrates the Scene Transition skill.</b></p>
         </h3>
@@ -207,10 +188,10 @@ example illustrates the Scene Transition skill.</b></p>
     <!-- Paper Model. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
-        <h4 class="title is-4">Comparison between VLV-bench and existing video understanding benchmarks.</h4>
+        <h4 class="title is-4">Comparison between InfiniBench and existing video understanding benchmarks.</h4>
         <img id="model" width="80%" src="repo_imags/comparison_table.JPG">
         <h3 class="subtitle has-text-centered">
-          <p style="font-family:Times New Roman"><b>VLV-bench has
+          <p style="font-family:Times New Roman"><b>InfiniBench has
 the largest QA pairs, the most videos, and the longest average duration. (Note: Global Q stands for whether any
 challenging questions are designed to explain the whole video. VS is the video’s script, and VSum is the summary
 of the video.)</b></p>
@@ -246,7 +227,7 @@ histogram of the lengths of the questions and answers.</b></p>
         <h4 class="title is-4">Full annotation pipeline.</h4>
         <img id="annotation_pipeline" width="80%" src="repo_imags/full_annotation_pileline.JPG">
         <h3 class="subtitle has-text-centered">
-          <p style="font-family:Times New Roman"><b>Full annotation pipeline for VLV-Bench skill set. The upper section depicts the global appearance pipeline,
+          <p style="font-family:Times New Roman"><b>Full annotation pipeline for InfiniBench skill set. The upper section depicts the global appearance pipeline,
 while the lower section illustrates the question generation using GPT-4. The gates for video summary and video
 transcript indicate that some skills utilize only the summary, others use only the transcript, and some use both.)</b></p>
         </h3>
@@ -263,7 +244,7 @@ transcript indicate that some skills utilize only the summary, others use only t
         <div class="content has-text-justified">
           <p>
             <b>Overall performance. The overall performance
-of different models on the VLV-bench is shown in
+of different models on the InfiniBench is shown in
 Table 2 (j). Three findings can be observed: (1) All
 models’ performance is relatively lower compared
 to other benchmarks (e.g., Movie-chat benchmark),
@@ -297,7 +278,7 @@ the Local visual+context questions. This shows
 that the main challenge for existing models is
 long-sequence global reasoning.<br>
             Performance on Four Types of Questions. As
-introduced in Section 3.1 in the main paper, in the VLV-benchmark,
+introduced in Section 3.1 in the main paper, in the InfiniBench,
 questions for each skill can be identified as one of
 four high-level types: Global visual, Global contextual, Global vision + text, and Local vision +
 context. The results for each type of question are
