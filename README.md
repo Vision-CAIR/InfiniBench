@@ -1,4 +1,6 @@
 # InfiniBench: A Comprehensive Benchmark for Large Multimodal Models in Very Long Video Understanding
+<font size=3><div align='center' > [[<img src="repo_imags/icon.png" width=18> Project Page](https://vision-cair.github.io/InfiniBench/)] [[📝 arXiv Paper](https://arxiv.org/abs/2406.19875)] [[🤗 Dataset](https://huggingface.co/datasets/Vision-CAIR/InfiniBench/tree/main)]</div></font>
+
 # Overview
 ![InfiniBench teaser figure](repo_imags/teaser_fig_new.jpg)
 Understanding long videos, ranging from tens
