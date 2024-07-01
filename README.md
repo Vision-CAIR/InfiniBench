@@ -207,7 +207,15 @@ bash evaluation/GPT4_eval/gpt4_score.sh
 # Citation
 If you're using InfiniBench in your research or applications, please cite using this BibTeX:
 ```
-
+@misc{ataallah2024infinibenchcomprehensivebenchmarklarge,
+      title={InfiniBench: A Comprehensive Benchmark for Large Multimodal Models in Very Long Video Understanding}, 
+      author={Kirolos Ataallah and Chenhui Gou and Eslam Abdelrahman and Khushbu Pahwa and Jian Ding and Mohamed Elhoseiny},
+      year={2024},
+      eprint={2406.19875},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2406.19875}, 
+}
 ```
 
 # Acknowledgements
