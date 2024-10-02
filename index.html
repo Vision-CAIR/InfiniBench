@@ -156,6 +156,7 @@
 <script type="text/javascript" src="js/simple_swiper.js"></script>
 
 
+
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
@@ -164,12 +165,18 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-          Understanding long videos, ranging from tens of minutes to several hours, presents unique challenges in video comprehension. Despite the increasing importance of long-form video content, existing benchmarks primarily focus on shorter clips. To address this gap, we introduce InfiniBench a comprehensive benchmark for very long video understanding, which presents 1) The longest video duration, averaging 76.34 minutes; 2) The largest number of question-answer pairs, 108.2K; 3) Diversity in questions that examine nine different skills and include both multiple-choice questions and open-ended questions; 4) Humancentric, as the video sources come from movies and daily TV shows, with specific human-level question designs such as Movie Spoiler Questions that require critical thinking and comprehensive understanding. Using InfiniBench, we comprehensively evaluate existing Large MultiModality Models (LMMs) on each skill, including the commercial model Gemini 1.5 Flash and the open-source models. The evaluation shows significant challenges in our benchmark.Our results show that the best AI models such Gemini struggles to perform well with 42.72% average accuracy and 2.71 out of 5 average score. We hope this benchmark will stimulate the LMMs community towards long video and human-level understanding.
+            Understanding long videos, ranging from tens of minutes to several hours, presents unique challenges in video comprehension. Despite the increasing importance of long-form video content, existing benchmarks primarily focus on shorter clips. To address this gap, we introduce InfiniBench a comprehensive benchmark for very long video understanding which presents 1)The longest video duration, averaging 52.59 minutes per video. 2) The largest number of question-answer pairs, 108.2K; 3) Diversity in questions that examine nine different skills and include both multiple-choice questions and open-ended questions; 4) Human-centric, as the video sources come from movies and daily TV shows, with specific human-level question designs such as Movie Spoiler Questions that require critical thinking and comprehensive understanding. Using InfiniBench, we comprehensively evaluate existing Large Multi-Modality Models (LMMs) on each skill, including the commercial models such as  GPT-4o and Gemini 1.5 Flash and the open-source models. 
+            The evaluation shows significant challenges in our benchmark.
+            Our findings reveal that even leading AI models like GPT-4o and Gemini 1.5 Flash face challenges in achieving high performance in long video understanding, with average accuracies of just 49.16\% and 42.72\%, and average scores of 3.22 and 2.71 out of 5, respectively.
+            We hope this benchmark will stimulate the LMMs community towards long video and human-level understanding.
           </p>
         </div>
       </div>
     </div>
     <!--/ Abstract. -->
+    <br>
+    <br>
+    <br>
     <br>
     <!-- Paper Model. -->
     <div class="columns is-centered has-text-centered">
@@ -227,7 +234,7 @@ histogram of the lengths of the questions and answers.</b></p>
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
         <h4 class="title is-4">Full annotation pipeline.</h4>
-        <img id="annotation_pipeline" width="80%" src="repo_imags/full_annotation_pileline_without_desc.JPG">
+        <img id="annotation_pipeline" width="80%" src="repo_imags/full_annotation_pileline.JPG">
         <h3 class="subtitle has-text-centered">
           <p style="font-family:Times New Roman"><b>Full annotation pipeline for InfiniBench skill set. The upper section depicts the global appearance pipeline,
 while the lower section illustrates the question generation using GPT-4. The gates for video summary and video
@@ -245,77 +252,87 @@ transcript indicate that some skills utilize only the summary, others use only t
         <h2 class="title is-3">Results</h2>
         <div class="content has-text-justified">
           <p>
-            <b>Overall performance. The overall performance
-of different models on the InfiniBench is shown in
-Table 2 (j). Three findings can be observed: (1) All
-models’ performance is relatively lower compared
-to other benchmarks (e.g., Movie-chat benchmark),
-highlighting the unique challenges of our benchmark, such as longer duration. (2) Gemini-Flash
-1.5 achieves the best performance on both multiplechoice and open-ended questions, with 47.72 accuracy (0-100) and 2.70 GPT4-score (0-5). There
-is also a large performance gap between Gemini
-and other open-source models. (3) For open-source
-models, LLama-vid achieves the best result. with
-17.15 accuracy and 1.7 GPT4-score. One reason
-may be that LLama-vid is pre-trained with longer
-duration QA-pairs, which helps handle longer sequences.<br>
-Performance on specific skills. Table 2 (a)-(i)
-shows the performance of SOTA long video
-understanding models on each skill. The performance varies significantly among different skills,
-highlighting the unique challenges introduced by
-each one. Obeservation of the results: (1) scene
-transition is the most difficult MCQ question type,
-with Gemini achieving only 29.48% accuracy. The
-potential reason for the low performance is that
-this question requires global reasoning across the
-entire hour-long video instead of one clip. (2) all
-models struggle with Movie Spoiler questions
-in open-ended questions. The difficulty lies in
-the need for deeper understanding and reasoning
-to get the correct answer. Since Movie Spoiler
-questions are meaningful for human-centric video
-understanding, current model capabilities need
-improvement. (3) All open-source models’ results
-on MCQ are below random choice, except for
-the Local visual+context questions. This shows
-that the main challenge for existing models is
-long-sequence global reasoning.<br>
-            Performance on Four Types of Questions. As
-introduced in Section 3.1 in the main paper, in the InfiniBench,
-questions for each skill can be identified as one of
-four high-level types: Global visual, Global contextual, Global vision + text, and Local vision +
-context. The results for each type of question are
-provided in Table 3. Only two models, Gemini
-Flash 1.5 and LLama-VID accept both video and
-video subtitles among these SOTA models. The table clearly shows that LLama-VID outperforms the
-other two open-source models for questions requiring context understanding. The main reason for the
-poor performance of LWM and MovieChat is that
-these two models make predictions from video only,
-missing important text information. This highlights
-the importance of long video understanding models handling both modalities. Additionally, global
-contextual questions are challenging for all models,
-requiring complex reasoning.</b>:
+            <b>The overall performance of different models on InfiniBench is shown in Table (j) below. Three findings can be observed: (1) All models' is relatively lower than other benchmarks (e.g., Movie-chat and MLVU benchmarks). This could be interpreted by the challenging nature of our skills that require deep, long-term understanding. To further verify this point, we test our benchmark on the most recent short-video models, e.g., MiniGPT4-video and LLaVA-NeXT-Interleave. We argue that short-video models should suffer if the benchmark truly assesses long-video understanding capabilities. In other words, the limited context captured by the short video models should not be enough to answer long reasoning queries. As shown in the table below, MiniGPT4-video and LLaVA-NeXT-Interleave match lower than the random performance, which shows the effectiveness of our benchmark in assessing long reasoning capabilities. (2) GPT-4o achieves the best performance on both multiple-choice and open-ended questions, with 49.16 accuracy (0-100) and 3.22 GPT4-score (0-5). There is also a large performance gap between GPT-4o and other open-source models which could be justified by the huge gap in the scale of the training data and GPUs used in training these models.(3) For open-source models, Goldfish achieves the best result. with 22.57 accuracy and 1.77 GPT-4o score.
+              One reason may be that eliminating the noisy information and focus on only the related information helps more in answering the questions. (4) short video models achieved the lowest performance because of information loss while sampling the long video into 8 or 45 frames in LLaVA-NeXT-Interleave and MiniGPT4-video respectively. (5) Models that can't input the subtitles such as Moviechat and LWM achieved low performance as the questions in our benchmark depends on both visual and textual information such as the questions that relies on the specific character actions or outfit and so on, these skills need the audio or the subtitles to be answered correctly.
+              
+              Performance on specific skills. Tables (a)-(i) shows the performance of SOTA long video understanding models on each skill. The performance varies significantly among different skills, highlighting the unique challenges introduced by each one. Observations of the results: (1) scene transition is the most difficult MCQ question type, with Gemini achieving only 29.48\% accuracy. The potential reason for the low performance is that this question requires global reasoning across the entire hour-long video instead of one clip we can also see that Goldfish is the lowest long video model in this skill (2) all models struggle with Movie Spoiler questions in open-ended questions with score 2.64 out of 5. The difficulty lies in the need for deeper understanding and reasoning to get the correct answer. Since Movie Spoiler questions are meaningful for human-centric video understanding, current model capabilities need improvement. (3) All open-source models' results on MCQ are below random choice, except for the Local visual+context questions. This shows that the main challenge for existing models is long-sequence global reasoning.
+              (4) For the local questions our results is consistence with Gemini technical report that shows that Gemini and GPT-4o excel in the "needle in the haystack" skill, achieving high scores across all modalities. This aligns with our benchmark results in the local vision context skill, where Gemini and GPT-4o achieve the highest scores among all skills.
+              
+              Performance on Four Types of Questions.
+              As introduced in Section skills in the main paper, in the InfiniBench questions for each skill can be identified as one of four high-level types: Global visual, Global contextual, Global vision + text, and Local vision + context. The results for each type of question are provided in the Table below.Among the commercial models, GPT-4o performs best across all four question types, despite being limited to processing only 250 frames, whereas Gemini can access the entire video. One possible reason for GPT-4o's superior performance could be its additional knowledge of these movies and TV shows, which enhances its ability to answer the questions accurately
+              
+              For the open-source models, the table indicates that LLaMA-vid excels in Global Vision questions, while Goldfish outperforms in the remaining three question types. This suggests that skills like Global Appearance and Scene Transitions require information from the entire video, rather than just the top-k segments as used by Goldfish. In contrast, for local questions, there's a significant gap between LLaMA-vid and Goldfish, with Goldfish benefiting from filtering out noisy information by focusing only on the top-k clips.The main reason for the poor performance of LWM and MovieChat is that these two models make predictions from video only, missing important text information. This highlights the importance of long video understanding models handling both modalities. Additionally, global contextual questions are challenging for all models, requiring complex reasoning.
+              </b>:
           </p>
         </div>
         <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
-       <img id="results_1" width="80%" src="repo_imags/results_1.JPG">
+        <img id="results_1" width="80%" src="repo_imags/results_1.JPG">
           <br>
+          <!-- <img id="without_subtitle" width="60%" src="repo_imags\f_leaderboard_without_subtitle.JPG">
+           <h4 class="title is-4">InfiniBench leaderboard without subtitles for fair comparison between the models</h4>
+           <br> -->
          <h4 class="title is-4">High level aggregated skills.</h4>
         <img id="agregated_skills" width="60%" src="repo_imags/skills_high_level.JPG">
            <h4 class="title is-4">Results for the high level aggregated skills.</h4>
-        <img id="results_2" width="80%" src="repo_imags/results_2.JPG">
+        <img id="results_2" width="80%" src="repo_imags/high_level_results_with_short.JPG">
+
 
       </div>
     </div>
       </div>
     </div>
-    <br>
+    <!--/ Paper video. -->
   </div>
 
 </section>
 
 <script src="js/Underscore-min.js"></script>
 <script src="js/index.js"></script>
+<section class="section">
+  <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Some qualitative results</h2>
+          <div>
+            
+            <img src="repo_imags\comparison_global_appearance.jpg" alt="Linking events failure and success cases">
+            <h3 >Example question of global appearance skill and how the models performs on it</h3>
+            
+            <img src="repo_imags\comparison_scene_transition.jpg" alt="">
+            <h3 >Example question of Scene transition skill and how the models performs on it</h3>
+            
+            <img src="repo_imags\comparison_spoiler_questions.jpg" alt="Linking events failure and success cases">
+            <h3 >Example question of Spoiler questions skill and how the models performs on it, note that S:number is the GPT4-o score</h3>
+            
+            <img src="repo_imags\comparison_deep_context_understanding.jpg" alt="">
+            <h3 >Example question of Deep context understanding skill and how the models performs on it, note that S:number is the GPT4-o score</h3>
+
+            
+        </div>
+    </div>
+  </div>
+    </div>
+  <!--/ Results. -->
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Failure and success cases while generating the benchmark</h2>
+          <div>
+            <img src="repo_imags\failure_success_linking_events.jpg" alt="Linking events failure and success cases">
+            <h3 >Linking multiple events failure and success cases </h3>
+            
+            <img src="repo_imags\failure_cases_temporal_questions.jpg" alt="Temporal order of events failure and success cases">
+            <h3 >Temporal order of events failure and success cases </h3>
+        </div>
+    </div>
+  </div>
+    </div>
+  <!--/ Results. -->
+</section>
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -324,9 +341,11 @@ requiring complex reasoning.</b>:
         <h2 class="title is-3">Examples</h2>
           <div>
             <img src="repo_imags/linking_multiple_events.jpg" alt="Linking multiple events questions example">
+            <img src="repo_imags/spoiler_questions.jpg" alt="spoiler questions example">
             <img src="repo_imags/temporal_questions.jpg" alt="Temporal order of events questions example">
             <img src="repo_imags/local_vision_context.jpg" alt="Local questions example">
             <img src="repo_imags/context_understanding.jpg" alt="Deep context understanding questions skill">
+            <img src="repo_imags\character_actions_example.jpg" alt="Squence of the Character actions questions skill">
             <img src="repo_imags/summarization.jpg" alt="Summarization questions example">
         </div>
     </div>
@@ -334,36 +353,12 @@ requiring complex reasoning.</b>:
     </div>
   <!--/ Results. -->
 </section>
+  
 
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>
-      @misc{ataallah2024infinibenchcomprehensivebenchmarklarge,
-        title={InfiniBench: A Comprehensive Benchmark for Large Multimodal Models in Very Long Video Understanding}, 
-        author={Kirolos Ataallah and Chenhui Gou and Eslam Abdelrahman and Khushbu Pahwa and Jian Ding and Mohamed Elhoseiny},
-        year={2024},
-        eprint={2406.19875},
-        archivePrefix={arXiv},
-        primaryClass={cs.CV},
-        url={https://arxiv.org/abs/2406.19875}, 
-  }
-    </code></pre>
-  </div>
 
-<section class="section" id="Acknowledgement">
-  <div class="container is-max-desktop content">
-    <h2 class="title">Acknowledgement</h2>
-    <a href="https://mbzuai-oryx.github.io/Video-ChatGPT">Video-ChatGPT</a>
-    <p>
-      This website is adapted from <a
-      href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license"
-                                          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-      Commons Attribution-ShareAlike 4.0 International License</a>.
-    </p>
-  </div>
-</section>
+
 
 </body>
 
 </html>
+
