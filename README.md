@@ -3,24 +3,10 @@
 
 # Overview
 ![InfiniBench teaser figure](repo_imags/teaser_fig_new.jpg)
-Understanding long videos, ranging from tens
-of minutes to several hours, presents unique
-challenges in video comprehension. Despite
-the increasing importance of long-form video
-content, existing benchmarks primarily focus
-on shorter clips. To address this gap, we introduce InfiniBench a comprehensive benchmark for very long video understanding,
-which presents 1) The longest video duration,
-averaging 76.34 minutes; 2) The largest number of question-answer pairs, 108.2K; 3) Diversity in questions that examine nine different
-skills and include both multiple-choice questions and open-ended questions; 4) Humancentric, as the video sources come from movies
-and daily TV shows, with specific human-level
-question designs such as Movie Spoiler Questions that require critical thinking and comprehensive understanding. Using InfiniBench, we
-comprehensively evaluate existing Large MultiModality Models (LMMs) on each skill, including the commercial model Gemini 1.5 Flash
-and the open-source models. The evaluation
-shows significant challenges in our benchmark.Our results show that the best AI models such
-Gemini struggles to perform well with 42.72%
-average accuracy and 2.71 out of 5 average
-score. We hope this benchmark will stimulate the LMMs community towards long video
-and human-level understanding.
+Understanding long videos, ranging from tens of minutes to several hours, presents unique challenges in video comprehension. Despite the increasing importance of long-form video content, existing benchmarks primarily focus on shorter clips. To address this gap, we introduce InfiniBench a comprehensive benchmark for very long video understanding which presents 1)The longest video duration, averaging 52.59 minutes per video. 2) The largest number of question-answer pairs, 108.2K; 3) Diversity in questions that examine nine different skills and include both multiple-choice questions and open-ended questions; 4) Human-centric, as the video sources come from movies and daily TV shows, with specific human-level question designs such as Movie Spoiler Questions that require critical thinking and comprehensive understanding. Using InfiniBench, we comprehensively evaluate existing Large Multi-Modality Models (LMMs) on each skill, including the commercial models such as  GPT-4o and Gemini 1.5 Flash and the open-source models. 
+The evaluation shows significant challenges in our benchmark.
+Our findings reveal that even leading AI models like GPT-4o and Gemini 1.5 Flash face challenges in achieving high performance in long video understanding, with average accuracies of just 49.16\% and 42.72\%, and average scores of 3.22 and 2.71 out of 5, respectively.
+We hope this benchmark will stimulate the LMMs community towards long video and human-level understanding.
 # Leaderboard for top commercial and open souce models:
 ![results_1](repo_imags/results_1.JPG)
 # High level aggregated skills:
@@ -31,7 +17,6 @@ and human-level understanding.
 ![benchmark_statistics_1](repo_imags/statistics_1_with_desc.JPG)
 
 ![benchmark_statistics_2](repo_imags/statistics_2_with_desc.JPG)
-
 # How to download videos 
 1- TVQA videos <br>
 Download the original TVQA videos for short videos from [here](https://tvqa.cs.unc.edu/download_tvqa.html)<br>
